@@ -6,6 +6,10 @@ struct BankAccount {
 	double balance;
 };
 
+void ChangeBalance(BankAccount& account, int sum) {
+	account.balance = sum;
+}
+
 int main()
 {
 	BankAccount account;
@@ -15,8 +19,10 @@ int main()
 	std::cin >> account.owner;
 	std::cout << "Введите баланс: ";
 	std::cin >> account.balance;
+	int new_balance;
 	std::cout << "Введите новый баланс: ";
-	std::cin >> account.balance;
+	std::cin >> new_balance;
+	ChangeBalance(account, new_balance);
 
 	std::cout << "Ваш счёт: " << account.owner << ", " << account.number << ", " << account.balance;
 
