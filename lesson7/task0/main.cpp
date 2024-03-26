@@ -1,4 +1,5 @@
 #include <iostream>
+#include <numeric>
 
 class Fraction {
 private:
@@ -7,12 +8,12 @@ private:
 
 public:
     Fraction(int numerator, int denominator) {
-        numerator_ = numerator;
-        denominator_ = denominator;
+        numerator_ = numerator / std::gcd(numerator, denominator);
+        denominator_ = denominator / std::gcd(numerator, denominator);
     }
 
     bool operator==(const Fraction &r) {
-        return numerator_ = r.numerator_ && denominator_ == r.denominator_;
+        return numerator_ == r.numerator_ && denominator_ == r.denominator_;
     }
 
     bool operator!=(const Fraction &r) {
@@ -20,7 +21,7 @@ public:
     }
 
     bool operator<(const Fraction &r) {
-        return ((numerator_ * r.denominator_ - r.numerator_ * denominator_) / (denominator_ * r.denominator_)) < 0;
+        return ((numerator_ * r.denominator_) - (r.numerator_ * denominator_)) / (denominator_ * r.denominator_) < 0;
     }
 
     bool operator>=(const Fraction &r) {
@@ -38,7 +39,7 @@ public:
 
 int main() {
     Fraction f1(4, 3);
-    Fraction f2(6, 11);
+    Fraction f2(8, 6);
 
     std::cout << "f1" << ((f1 == f2) ? " == " : " not == ") << "f2" << '\n';
     std::cout << "f1" << ((f1 != f2) ? " != " : " not != ") << "f2" << '\n';

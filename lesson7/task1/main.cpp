@@ -13,7 +13,7 @@ public:
     }
 
     bool operator==(const Fraction &r) {
-        return numerator_ = r.numerator_ && denominator_ == r.denominator_;
+        return numerator_ == r.numerator_ && denominator_ == r.denominator_;
     }
 
     bool operator!=(const Fraction &r) {
