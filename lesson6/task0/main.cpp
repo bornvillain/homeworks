@@ -17,20 +17,24 @@ int function(std::string str, int forbidden_length) {
 }
 
 int main() {
+
     int forbidden_length;
     std::string word;
     std::cout << "Enter forbidden length: ";
     std::cin >> forbidden_length;
-    std::cout << "Enter a word: ";
-    std::cin >> word;
+    while (true) {
+        std::cout << "Enter a word: ";
+        std::cin >> word;
 
-    try {
-        std::cout << "The length of the word " << word << " is " << function(word, forbidden_length) << std::endl;
-    }
-    catch (const bad_length &ex) {
-        std::cout << ex.what() << std::endl;
-    }
-    catch (...) {
-        std::cout << "Unknown error" << std::endl;
+        try {
+            std::cout << "The length of the word " << word << " is " << function(word, forbidden_length) << std::endl;
+        }
+        catch (const bad_length &ex) {
+            std::cout << ex.what() << std::endl;
+            break;
+        }
+        catch (...) {
+            std::cout << "Unknown error" << std::endl;
+        }
     }
 }
