@@ -13,9 +13,9 @@ public:
         }
     }
 
-    smart_array& operator=(const smart_array &rhs){
+    smart_array &operator=(const smart_array &rhs) {
         smart_array copy(rhs);
-        std::swap(copy,*this);
+        swap(copy);
         return *this;
     }
 
@@ -51,6 +51,12 @@ private:
     int size_;
     int capacity_;
     int *ptr_;
+
+    void swap(smart_array &copy) {
+        std::swap(size_, copy.size_);
+        std::swap(capacity_, copy.capacity_);
+        std::swap(ptr_, copy.ptr_);
+    }
 };
 
 int main() {
@@ -64,4 +70,5 @@ int main() {
     new_array.add_element(34);
 
     arr = new_array;
+
 }
