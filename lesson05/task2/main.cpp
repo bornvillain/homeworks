@@ -8,9 +8,21 @@ public:
     smart_ptr(Type *raw_ptr)
             : raw_ptr_(raw_ptr) {}
 
-    smart_ptr(const Type *&raw_ptr) = delete;
+    smart_ptr(const smart_ptr &) = delete;
 
-    Type *operator=(const Type *&other) = delete;
+    smart_ptr &operator=(const smart_ptr &) = delete;
+
+    smart_ptr(smart_ptr &&other) noexcept {
+        raw_ptr_ = other.raw_ptr_;
+        other.raw_ptr_ = nullptr;
+    }
+
+    smart_ptr &operator=(smart_ptr &&rhs) noexcept {
+        delete raw_ptr_;
+        raw_ptr_ = rhs.raw_ptr_;
+        rhs.raw_ptr_ = nullptr;
+        return *this;
+    }
 
     Type &operator*() const {
         if (!raw_ptr_) {
@@ -61,7 +73,9 @@ private:
 
 int main() {
     {
-        smart_ptr sp = smart_ptr(new test_obj(2));
+        smart_ptr sp1 = smart_ptr(new test_obj(2));
+        smart_ptr sp2 = std::move(sp1);
+        sp1 = std::move(sp2);
     }
 
     smart_ptr sp = smart_ptr(new test_obj(2));
