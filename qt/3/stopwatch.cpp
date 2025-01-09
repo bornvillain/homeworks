@@ -38,7 +38,7 @@ void Stopwatch::record_lap()
 
     if(lap_s<0){
         lap_m--;
-        lap_ms+=60;
+        lap_s+=60;
     }
 
 

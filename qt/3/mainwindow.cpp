@@ -19,13 +19,16 @@ MainWindow::~MainWindow()
 void MainWindow::update_display(int m,int s,int ms,const QList<QString>& laps)
 {
     QString time_text=QString::number(m)+" : "+QString::number(s)+" : "+QString::number(ms);
-    QString display_text=time_text;
+    ui->time_label->setText(time_text);
+    QString display_text;
     if(!laps.isEmpty()){
         for(int i=0;i<laps.size();++i){
             display_text += QString("\nLap %1, time %2").arg(i + 1).arg(laps[i]);
         }
     }
-    ui->time_label->setText(display_text);
+    ui->lap_textBrowser->setText(display_text);
+    ui->lap_textBrowser->moveCursor(QTextCursor::End);
+    ui->lap_textBrowser->ensureCursorVisible();
 }
 
 void MainWindow::on_start_pushButton_clicked()
